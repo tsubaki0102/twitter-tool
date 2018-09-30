@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter
 
 import scala.util.Try
 
-class SessionTime(value: LocalDateTime)
+case class SessionTime(value: LocalDateTime)
 
 object SessionTime {
 
