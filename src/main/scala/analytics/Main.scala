@@ -2,6 +2,7 @@ package analytics
 
 import com.danielasfregola.twitter4s.TwitterRestClient
 import com.typesafe.scalalogging.LazyLogging
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
@@ -30,7 +31,7 @@ object Main extends LazyLogging {
 
         tweets.foreach { tweet =>
           logger.info(
-            s"${tweet.id} | ${accountName} |  ${tweet.created_at} | ${tweet.text} | ${tweet.retweet_count} | ${tweet.favorite_count}")
+            s"${tweet.id} | $accountName |  ${tweet.created_at} | ${tweet.text} | ${tweet.retweet_count} | ${tweet.favorite_count}")
         }
       }
   }
