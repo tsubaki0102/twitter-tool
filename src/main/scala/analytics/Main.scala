@@ -1,12 +1,9 @@
 package analytics
 
+import analytics.application.TweetETLServiceImpl
 import analytics.infrastructure.{TweetExtractorImpl, TweetRepositoryImpl}
 import analytics.model.SessionTime
-import com.danielasfregola.twitter4s.TwitterRestClient
 
-import scala.concurrent.Await
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.Duration
 import scala.util.{Failure, Success}
 
 object Main {
@@ -25,20 +22,7 @@ object Main {
       case Failure(e) => println(e); throw e
     }
 
-    val restClient = TwitterRestClient()
-
-    val fut = for {
-      tweets <- TweetExtractorImpl.extract(accountName, restClient)
-      _      <- TweetRepositoryImpl.saveAll(sessionTime, tweets)
-    } yield ()
-
-    fut.onComplete {
-      case Success(_) => println("完了しました")
-      case Failure(e) => println(e)
-    }
-
-    //TODO APIエラーを制御する
-    Await.result(fut, Duration.Inf)
-    restClient.shutdown
+    val service = new TweetETLServiceImpl(TweetExtractorImpl, TweetRepositoryImpl)
+    service.etl(accountName, sessionTime)
   }
 }
