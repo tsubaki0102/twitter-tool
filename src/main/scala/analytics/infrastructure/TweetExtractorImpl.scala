@@ -16,7 +16,7 @@ object TweetExtractorImpl extends TweetExtractor with LazyLogging {
         val tweets = ratedData.data
 
         tweets.foreach { tweet =>
-          logger.info(
+          logger.debug(
             s"${tweet.id} | $accountName |  ${tweet.created_at} | ${tweet.text} | ${tweet.retweet_count} | ${tweet.favorite_count}")
         }
 
