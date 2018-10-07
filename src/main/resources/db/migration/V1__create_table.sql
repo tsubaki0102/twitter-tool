@@ -4,5 +4,6 @@ CREATE TABLE `tweet` (
   `created_at` DATETIME NOT NULL,
   `retweet_count` INTEGER NOT NULL,
   `favorite_count` INTEGER NOT NULL,
+  `text` TEXT NOT NULL,
   PRIMARY KEY (`session_time`, `id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
