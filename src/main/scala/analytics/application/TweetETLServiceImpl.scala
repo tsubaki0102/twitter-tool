@@ -10,7 +10,12 @@ import scala.util.{Failure, Success}
 class TweetETLServiceImpl @Inject()(tweetExtractor: TweetExtractor, tweetRepository: TweetRepository)
     extends TweetETLService {
 
-  override def etl(accountName: String, sessionTime: SessionTime): Future[Unit] = {
+  override def etl(accountName: String, sessionTimeStr: String): Future[Unit] = {
+
+    val sessionTime = SessionTime(sessionTimeStr) match {
+      case Success(s) => s
+      case Failure(e) => println(e); throw e
+    }
 
     val restClient = TwitterRestClient()
 
