@@ -31,6 +31,7 @@ object TweetRepositoryImpl extends TweetRepository {
           .batch(records: _*)
           .apply()
       }
+
     }
 
 }

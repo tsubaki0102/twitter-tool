@@ -49,4 +49,5 @@ object FavoritesCleanerMain extends LazyLogging {
 
     Date.from(oneWeekAgoInstant)
   }
+
 }
