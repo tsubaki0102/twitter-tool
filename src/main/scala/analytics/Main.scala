@@ -1,8 +1,8 @@
 package analytics
 
-import analytics.application.TweetETLServiceImpl
-import analytics.infrastructure.{TweetExtractorImpl, TweetRepositoryImpl}
+import analytics.application.TweetETLService
 import analytics.model.SessionTime
+import com.google.inject.Guice
 
 import scala.util.{Failure, Success}
 
@@ -22,7 +22,8 @@ object Main {
       case Failure(e) => println(e); throw e
     }
 
-    val service = new TweetETLServiceImpl(TweetExtractorImpl, TweetRepositoryImpl)
-    service.etl(accountName, sessionTime)
+    val tweetETLService = Guice.createInjector(Module).getInstance(classOf[TweetETLService])
+    tweetETLService.etl(accountName, sessionTime)
   }
+
 }

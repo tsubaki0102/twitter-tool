@@ -1,12 +1,14 @@
 package analytics.application
 import analytics.model.{SessionTime, TweetExtractor, TweetRepository}
 import com.danielasfregola.twitter4s.TwitterRestClient
+import com.google.inject.Inject
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 import scala.util.{Failure, Success}
 
-class TweetETLServiceImpl(tweetExtractor: TweetExtractor, tweetRepository: TweetRepository) extends TweetETLService {
+class TweetETLServiceImpl @Inject()(tweetExtractor: TweetExtractor, tweetRepository: TweetRepository)
+    extends TweetETLService {
 
   override def etl(accountName: String, sessionTime: SessionTime): Future[Unit] = {
 
