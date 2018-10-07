@@ -9,4 +9,5 @@ class SessionTimeSpec extends Specification {
       SessionTime(str) must beSuccessfulTry
     }
   }
+
 }

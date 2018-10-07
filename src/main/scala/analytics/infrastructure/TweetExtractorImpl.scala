@@ -23,4 +23,5 @@ object TweetExtractorImpl extends TweetExtractor with LazyLogging {
         tweets
       }
   }
+
 }
