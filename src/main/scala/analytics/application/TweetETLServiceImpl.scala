@@ -6,7 +6,7 @@ import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 import scala.util.{Failure, Success}
 
-class TweetETLServiceImpl(tweetExtractor: TweetExtractor, tweetRepositoty: TweetRepository) extends TweetETLService {
+class TweetETLServiceImpl(tweetExtractor: TweetExtractor, tweetRepository: TweetRepository) extends TweetETLService {
 
   override def etl(accountName: String, sessionTime: SessionTime): Future[Unit] = {
 
@@ -16,7 +16,7 @@ class TweetETLServiceImpl(tweetExtractor: TweetExtractor, tweetRepositoty: Tweet
 
     val fut = for {
       tweets <- tweetExtractor.extract(accountName, restClient)
-      _      <- tweetRepositoty.saveAll(sessionTime, tweets)
+      _      <- tweetRepository.saveAll(sessionTime, tweets)
     } yield ()
 
     fut.onComplete {
