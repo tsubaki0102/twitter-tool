@@ -1,5 +1,5 @@
 package clean
-import java.time.{LocalDateTime, ZoneId}
+import java.time.{ZoneId, ZonedDateTime}
 import java.util.Date
 
 import com.danielasfregola.twitter4s.TwitterRestClient
@@ -42,9 +42,9 @@ object FavoritesCleanerMain extends LazyLogging {
   }
 
   def oneWeekAgo: Date = {
-    val oneWeekAgoInstant = LocalDateTime.now
+    val oneWeekAgoInstant = ZonedDateTime
+      .now(ZoneId.of("Asia/Tokyo"))
       .minusDays(7)
-      .atZone(ZoneId.systemDefault)
       .toInstant
 
     Date.from(oneWeekAgoInstant)
