@@ -5,6 +5,6 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait TweetRepository {
 
-  def saveAll(sessionTime: SessionTime, tweets: Seq[Tweet])(implicit ec: ExecutionContext): Future[Unit]
+  def saveAll(sessionTime: SessionTimeJST, tweets: Seq[Tweet])(implicit ec: ExecutionContext): Future[Unit]
 
 }

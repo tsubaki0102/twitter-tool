@@ -1,7 +1,7 @@
 package analytics.infrastructure
 import java.text.SimpleDateFormat
 
-import analytics.model.{SessionTime, TweetRepository}
+import analytics.model.{SessionTimeJST, TweetRepository}
 import com.danielasfregola.twitter4s.entities.Tweet
 import scalikejdbc._
 import scalikejdbc.config.DBs
@@ -10,7 +10,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 object TweetRepositoryImpl extends TweetRepository {
 
-  override def saveAll(sessionTime: SessionTime, tweets: Seq[Tweet])(implicit ec: ExecutionContext): Future[Unit] =
+  override def saveAll(sessionTime: SessionTimeJST, tweets: Seq[Tweet])(implicit ec: ExecutionContext): Future[Unit] =
     Future {
 
       val records: Seq[Seq[Any]] = tweets.map { tweet =>
