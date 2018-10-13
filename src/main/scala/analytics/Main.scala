@@ -8,6 +8,17 @@ import scala.util.{Failure, Success}
 
 object Main {
 
+  //AWS Lambda用のリクエストハンドラー
+  def handleLambda(input: Any, context: Any): java.util.List[String] = {
+
+    val accountName: String = sys.env.getOrElse("ACCOUNT_NAME", throw new Exception("ACCOUNT_NAMEが指定されていません"))
+
+    val tweetETLService = Guice.createInjector(Module).getInstance(classOf[TweetETLService])
+    tweetETLService.etl(accountName, SessionTimeJST.now)
+
+    new java.util.ArrayList[String]
+  }
+
   /*
    * @param args 0:アカウント名 1:セッションタイム("yyyy-MM-dd HH:mm:ss")
    */
