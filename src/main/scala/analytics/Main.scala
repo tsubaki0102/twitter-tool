@@ -3,10 +3,11 @@ package analytics
 import analytics.application.TweetETLService
 import analytics.model.SessionTimeJST
 import com.google.inject.Guice
+import com.typesafe.scalalogging.LazyLogging
 
 import scala.util.{Failure, Success}
 
-object Main {
+object Main extends LazyLogging {
 
   //AWS Lambda用のリクエストハンドラー
   def handleLambda(input: Any, context: Any): java.util.List[String] = {
@@ -27,7 +28,7 @@ object Main {
 
     val sessionTime = SessionTimeJST(args(1)) match {
       case Success(s) => s
-      case Failure(e) => println(e); throw e
+      case Failure(e) => logger.error("セッションタイムのパースに失敗しました"); throw e
     }
 
     val tweetETLService = Guice.createInjector(Module).getInstance(classOf[TweetETLService])
